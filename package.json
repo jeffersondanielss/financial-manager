@@ -1,0 +1,24 @@
+{
+  "name": "financial-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --watch --verbose=true",
+    "lint": "eslint src/** test/** --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "jest": "23.6.0",
+    "supertest": "3.3.0"
+  },
+  "dependencies": {
+    "express": "4.16.4"
+  }
+}
