@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "jest --watch --verbose=true",
+    "test": "jest --watch --verbose=false",
     "lint": "eslint src/** test/** --fix"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "consign": "0.1.6",
     "express": "4.16.4",
     "knex": "0.15.2",
+    "knex-logger": "^0.1.0",
     "pg": "7.7.1"
   }
 }
