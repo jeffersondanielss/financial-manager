@@ -3,7 +3,7 @@ module.exports = {
     client: 'pg',
     version: '9.6',
     connection: {
-      host: 'localhost',
+      host: 'db',
       user: 'postgres',
       database: 'financial',
     },
