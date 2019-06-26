@@ -5,8 +5,6 @@ services:
     container_name: "db"
     ports:
       - 5432:5432
-        #volumes:
-        #- ./db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=financial
       - POSTGRES_USER=postgres
@@ -16,9 +14,6 @@ services:
     volumes:
       - .:/app
     ports:
-      - 5000:5000
+      - 9999:9999
     depends_on:
      - db
-
-       #volumes:
-       #  db-data:

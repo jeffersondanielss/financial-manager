@@ -11,6 +11,6 @@ USER node
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-EXPOSE 5000
+EXPOSE 9999
 
-CMD ["npm", "run", "server"]
+CMD ["npm", "run", "start"]
