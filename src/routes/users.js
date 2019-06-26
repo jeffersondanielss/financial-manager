@@ -1,11 +1,13 @@
-module.exports = (app) => {
+module.exports = ({ services }) => {
+  const { user } = services;
+
   const findAll = (req, res) => {
-    app.db('users').select()
+    user.findAll()
       .then(result => res.status(200).json(result));
   };
 
   const create = ('/users', async (req, res) => {
-    const result = await app.db('users').insert(req.body, '*');
+    const result = await user.save(req.body);
     res.status(201).json(result[0]);
   });
 
