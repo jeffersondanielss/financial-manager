@@ -1,18 +1,17 @@
 module.exports = ({ services }) => {
   const { user } = services;
 
-  const findAll = (req, res) => {
-    user.findAll()
-      .then(result => res.status(200).json(result));
+  const findAll = async (req, res) => {
+    const result = await user.findAll();
+    res.status(200).json(result);
   };
 
-  const create = ('/users', async (req, res) => {
+  const create = async (req, res) => {
     const result = await user.save(req.body);
-    res.status(201).json(result[0]);
-  });
+    if (result.error) return res.status(400).json(result);
 
-  return {
-    findAll,
-    create,
+    return res.status(201).json(result[0]);
   };
+
+  return { findAll, create };
 };

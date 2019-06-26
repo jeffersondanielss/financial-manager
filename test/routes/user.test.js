@@ -17,3 +17,11 @@ test('should insert a user with success', async () => {
   expect(res.status).toBe(201);
   expect(res.body).toHaveProperty('name', 'Walter Mitty');
 });
+
+test('shouldn`t insert user without name', async () => {
+  const res = await request(app).post('/users')
+    .send({ mail: internet.email(), passwd: '123' });
+
+  expect(res.status).toBe(400);
+  expect(res.body.error).toBe('Nome é um atributo obrigatório.');
+});
