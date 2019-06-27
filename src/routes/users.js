@@ -3,7 +3,8 @@ module.exports = ({ services }) => {
 
   const findAll = async (req, res) => {
     const result = await user.findAll();
-    res.status(200).json(result);
+
+    return res.status(200).json(result);
   };
 
   const create = async (req, res) => {
@@ -13,5 +14,12 @@ module.exports = ({ services }) => {
     return res.status(201).json(result[0]);
   };
 
-  return { findAll, create };
+  const findById = async (req, res) => {
+    const result = await user.findById(req.params.id);
+    if (result.error) return res.status(404).json(result);
+
+    return res.status(200).json(result[0]);
+  };
+
+  return { findAll, create, findById };
 };

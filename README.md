@@ -1,36 +1,45 @@
 # Financial Manager
 
-## Migrations
+## Run Application
+The below command will run postgres database and the API REST.
+```
+docker-compose up -d
+```
+## Run Tests
+```
+docker-compose run --rm app npm run test
+```
 
-Criar tabelas
+## Migrations
+Create tables
 
 ```
 node_modules/.bin/knex migrate:latest --env test
 ```
 
-Restaurar
+Drop tables
 
 ```
 node_modules/.bin/knex migrate:rollback --env test
 ```
 
-## Postgres
+## Postgres Commands
+Connect database
 
-conectar ao banco
 ```ssh
 docker exec -it db psql -U postgres
 
-lista os bancos de dados
+# lista os bancos de dados
 \list
 
-conecta ao banco de dados
+# conecta ao banco de dados
 connect financial
 
-lista as tabelas
+# lista as tabelas
 \dt
 ```
 
-criar database
+Create database
 ```
 docker exec -it db psql -U postgres -c "create database financial"
 ```

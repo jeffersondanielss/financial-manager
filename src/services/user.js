@@ -15,5 +15,11 @@ module.exports = ({ db }) => {
     return db('users').insert(user, '*');
   };
 
-  return { findAll, save };
+  const findById = async (id) => {
+    const result = await db('users').where({ id }).select();
+    if (result && result.length > 0) return Promise.resolve(result);
+    return Promise.resolve({ error: 'Usuário não encontrado ou inexistente.' });
+  };
+
+  return { findAll, save, findById };
 };
