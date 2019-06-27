@@ -11,5 +11,6 @@ module.exports = (app) => {
     .post(app.routes.accounts.create);
 
   app.route('/accounts/:id')
+    .put(app.routes.accounts.update)
     .get(app.routes.accounts.findById);
 };

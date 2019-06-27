@@ -16,5 +16,15 @@ module.exports = ({ services }) => {
     return res.status(200).json(result);
   };
 
-  return { create, findAll, findById };
+  const update = async (req, res) => {
+    const result = await accounts.update(req.body, req.params.id);
+    return res.status(200).json(result[0]);
+  };
+
+  return {
+    create,
+    findAll,
+    findById,
+    update,
+  };
 };
