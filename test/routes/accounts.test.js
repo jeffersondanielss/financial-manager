@@ -31,4 +31,11 @@ describe('accounts', () => {
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
   });
+
+  test('should return one account by id', async () => {
+    const res = await request(app).get(`${MAIN_ROUTE}/1`);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('name', 'Acc #1');
+  });
 });

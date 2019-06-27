@@ -7,5 +7,9 @@ module.exports = ({ db }) => {
     return db('accounts').select();
   };
 
-  return { save, findAll };
+  const findById = (id) => {
+    return db('accounts').where({ id }).first();
+  };
+
+  return { save, findAll, findById };
 };

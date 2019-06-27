@@ -11,5 +11,10 @@ module.exports = ({ services }) => {
     return res.status(200).json(result);
   };
 
-  return { create, findAll };
+  const findById = async (req, res) => {
+    const result = await accounts.findById(req.params.id);
+    return res.status(200).json(result);
+  };
+
+  return { create, findAll, findById };
 };
