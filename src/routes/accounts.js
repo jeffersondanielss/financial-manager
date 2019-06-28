@@ -21,10 +21,16 @@ module.exports = ({ services }) => {
     return res.status(200).json(result[0]);
   };
 
+  const exclude = async (req, res) => {
+    await accounts.exclude(req.params.id);
+    return res.status(204).send();
+  };
+
   return {
     create,
     findAll,
     findById,
     update,
+    exclude,
   };
 };

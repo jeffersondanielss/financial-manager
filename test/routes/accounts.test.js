@@ -52,4 +52,12 @@ describe('accounts', () => {
       expect(res.body).toHaveProperty('name', 'Acc #X');
     });
   });
+
+  describe('DELETE', () => {
+    test('should remove an account', async () => {
+      const res = await request(app).delete(`${MAIN_ROUTE}/1`);
+
+      expect(res.status).toBe(204);
+    });
+  });
 });
