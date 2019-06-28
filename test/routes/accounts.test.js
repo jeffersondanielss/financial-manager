@@ -25,6 +25,16 @@ describe('accounts', () => {
       expect(res.status).toBe(200);
       expect(res.body.name).toBe('Acc #1');
     });
+
+    test('shouldn`t insert one account without name', async () => {
+      const res = await request(app).post(MAIN_ROUTE)
+        .send({ user_id: 1 });
+
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('Nome é um atributo obrigatório.');
+    });
+
+    test.skip('shouldn`t insert one account with duplicated name, for a same user', async () => {});
   });
 
   describe('GET', () => {
@@ -35,12 +45,16 @@ describe('accounts', () => {
       expect(res.body).toHaveLength(1);
     });
 
+    test.skip('should list just accounts of current user', async () => {});
+
     test('should return one account by id', async () => {
       const res = await request(app).get(`${MAIN_ROUTE}/1`);
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('name', 'Acc #1');
     });
+
+    test.skip('should,`t return accounts of other user', async () => {});
   });
 
   describe('PUT', () => {
@@ -51,13 +65,16 @@ describe('accounts', () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('name', 'Acc #X');
     });
+
+    test.skip('should,`t edit accounts of other user', async () => {});
   });
 
   describe('DELETE', () => {
     test('should remove an account', async () => {
       const res = await request(app).delete(`${MAIN_ROUTE}/1`);
-
       expect(res.status).toBe(204);
     });
+
+    test.skip('should,`t exclude accounts of other user', async () => {});
   });
 });
