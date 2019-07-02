@@ -2,9 +2,12 @@ module.exports = ({ services }) => {
   const { accounts } = services;
 
   const create = async (req, res) => {
-    const result = await accounts.save(req.body);
-    if (result.error) return res.status(400).json(result);
-    return res.status(200).json(result[0]);
+    try {
+      const result = await accounts.save(req.body);
+      return res.status(200).json(result[0]);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
   };
 
   const findAll = async (req, res) => {
