@@ -19,8 +19,8 @@ module.exports = ({ db }) => {
 
   const findById = async (id) => {
     const result = await db('users').where({ id }).select();
-    if (result && result.length > 0) return Promise.resolve(result);
-    return Promise.resolve({ error: 'Usuário não encontrado ou inexistente.' });
+    if (!result || result.length < 1) throw new ValidationError('Usuário não encontrado ou inexistente.');
+    return Promise.resolve(result);
   };
 
   return { findAll, save, findById };

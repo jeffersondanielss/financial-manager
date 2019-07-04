@@ -34,7 +34,7 @@ describe('users', () => {
     test('should return error when user not exists', async () => {
       const res = await request(app).get('/users/500');
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
       expect(res.body.error).toBe('Usuário não encontrado ou inexistente.');
     });
   });

@@ -16,4 +16,16 @@ app.get('/', (req, res) => {
   res.status(200).send();
 });
 
+app.use((error, req, res, next) => {
+  const { name, message, stack } = error;
+
+  if (name === 'validationError') {
+    res.status(400).json({ error: message });
+  } else {
+    res.status(500).json({ name, message, stack });
+  }
+
+  next(error);
+});
+
 module.exports = app;
