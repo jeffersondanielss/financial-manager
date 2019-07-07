@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt-nodejs');
 const ValidationError = require('../errors/validationError');
 
 module.exports = ({ db }) => {
@@ -5,23 +6,29 @@ module.exports = ({ db }) => {
     return db('users').where(filter).select();
   };
 
+  const findOne = (filter = {}) => {
+    return db('users').where(filter).select().first();
+  };
+
+  const getPasswdHash = (passwd) => {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(passwd, salt);
+  };
+
   const save = async (user) => {
     if (!user.name) throw new ValidationError('Nome é um atributo obrigatório.');
     if (!user.mail) throw new ValidationError('Email é um atributo obrigatório.');
     if (!user.passwd) throw new ValidationError('Senha é um atributo obrigatório.');
 
-    const userDB = await findAll({ mail: user.mail });
+    const userDB = await findOne({ mail: user.mail });
 
-    if (userDB && userDB.length > 0) throw new ValidationError('Já existe um usuário com este email.');
+    if (userDB) throw new ValidationError('Já existe um usuário com este email.');
 
-    return db('users').insert(user, '*');
+    const newUser = { ...user };
+    newUser.passwd = getPasswdHash(newUser.passwd);
+
+    return db('users').insert(newUser, ['id', 'name', 'mail']);
   };
 
-  const findById = async (id) => {
-    const result = await db('users').where({ id }).select();
-    if (!result || result.length < 1) throw new ValidationError('Usuário não encontrado ou inexistente.');
-    return Promise.resolve(result);
-  };
-
-  return { findAll, save, findById };
+  return { findAll, save, findOne };
 };

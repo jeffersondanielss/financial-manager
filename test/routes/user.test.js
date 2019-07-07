@@ -24,14 +24,14 @@ describe('users', () => {
       expect(res.body.length).toBe(1);
     });
 
-    test('should return especific user', async () => {
+    test.skip('should return especific user', async () => {
       const res = await request(app).get('/users/1');
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('name', 'Madara');
     });
 
-    test('should return error when user not exists', async () => {
+    test.skip('should return error when user not exists', async () => {
       const res = await request(app).get('/users/500');
 
       expect(res.status).toBe(400);
@@ -46,6 +46,18 @@ describe('users', () => {
 
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty('name', 'Walter Mitty');
+      expect(res.body).not.toHaveProperty('passwd');
+    });
+
+    test('should insert a encrypted password', async () => {
+      const res = await request(app).post('/users')
+        .send({ name: 'Walter Mitty', mail: internet.email(), passwd: '123' });
+
+      expect(res.status).toBe(201);
+      const { id } = res.body;
+      const userDb = await app.services.user.findOne({ id });
+      expect(userDb.passwd).not.toBeUndefined();
+      expect(userDb.passwd).not.toBe('123');
     });
 
     test('shouldn`t insert user without name', async () => {
