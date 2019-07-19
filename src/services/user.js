@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt-nodejs');
 const ValidationError = require('../errors/validationError');
 
 module.exports = ({ db }) => {
-  const findAll = (filter = {}) => {
-    return db('users').where(filter).select();
+  const findAll = () => {
+    return db('users').select(['id', 'name', 'mail']);
   };
 
   const findOne = (filter = {}) => {
